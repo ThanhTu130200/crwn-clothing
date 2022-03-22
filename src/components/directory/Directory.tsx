@@ -4,8 +4,8 @@ import MenuItem from "../menu-item/MenuItem"
 import "./Directory.scss"
 import { DirectoryState } from "../../model"
 
-class Directory extends React.Component {
-	state: DirectoryState[] = [
+const Directory: React.FC = () => {
+	const state: DirectoryState[] = [
 		{
 			title: "hats",
 			imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
@@ -38,20 +38,18 @@ class Directory extends React.Component {
 		},
 	]
 
-	render() {
-		return (
-			<div className="directory-menu">
-				{this.state.map((section) => (
-					<MenuItem
-						key={section.id}
-						title={section.title}
-						imageUrl={section.imageUrl}
-						size={section.size}
-					/>
-				))}
-			</div>
-		)
-	}
+	return (
+		<div className="directory-menu">
+			{state.map((section) => (
+				<MenuItem
+					key={section.id}
+					title={section.title}
+					imageUrl={section.imageUrl}
+					size={section.size}
+				/>
+			))}
+		</div>
+	)
 }
 
 export default Directory
