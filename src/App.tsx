@@ -36,8 +36,6 @@ const App: React.FC = () => {
 		return () => unsubscribe()
 	}, [])
 
-	console.log(currentUser)
-
 	return (
 		<div>
 			<Header currentUser={currentUser} />
