@@ -5,8 +5,9 @@ import "./App.css"
 import HomePage from "./pages/homepage/HomePage"
 import ShopPage from "./pages/shop/ShopPage"
 import Header from "./components/header/Header"
-import SignIn from "./components/sign-in/SignIn"
-import { auth } from "./firebase/firebase"
+import { auth, createUserProfileDocument } from "./firebase/firebase"
+import { onSnapshot } from "firebase/firestore"
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUpPage"
 
 const HatsPage = () => (
 	<div>
@@ -15,15 +16,28 @@ const HatsPage = () => (
 )
 
 const App: React.FC = () => {
-	const [currentUser, setCurrentUser] = useState<any>(null)
+	const [currentUser, setCurrentUser] = useState<null | object>(null)
 
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			setCurrentUser(user)
+		const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+			if (userAuth) {
+				const userRef = await createUserProfileDocument(userAuth, null)
+				if (userRef) {
+					onSnapshot(userRef, (snapshot: any) => {
+						setCurrentUser({
+							id: snapshot.id,
+							...snapshot.data(),
+						})
+					})
+				}
+			} else setCurrentUser(userAuth)
 		})
 
 		return () => unsubscribe()
 	}, [])
+
+	console.log(currentUser)
+
 	return (
 		<div>
 			<Header currentUser={currentUser} />
@@ -31,7 +45,7 @@ const App: React.FC = () => {
 				<Route path="/" element={<HomePage />} />
 				<Route path="/shop" element={<ShopPage />} />
 				<Route path="/hats" element={<HatsPage />} />
-				<Route path="/signin" element={<SignIn />} />
+				<Route path="/signin" element={<SignInAndSignUp />} />
 			</Routes>
 		</div>
 	)

@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app"
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { getStorage } from "firebase/storage"
+import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore"
 
 const config = {
 	apiKey: "AIzaSyABYPtTPTtDRVFywCqehsNchDxzfQ14zzU",
@@ -12,7 +13,34 @@ const config = {
 	measurementId: "G-SSRXZ4044M",
 }
 
-firebase.initializeApp(config)
+const app = firebase.initializeApp(config)
+const firestore = getFirestore(app)
+
+export const createUserProfileDocument = async (userAuth: any, additionalData: any) => {
+	if (!userAuth) return
+
+	const userRef = doc(firestore, `users/${userAuth.uid}`)
+
+	const snapShot = await getDoc(userRef)
+
+	if (!snapShot.exists()) {
+		const { displayName, email } = userAuth
+		const createdAt = new Date()
+
+		try {
+			await setDoc(userRef, {
+				displayName,
+				email,
+				createdAt,
+				...additionalData,
+			})
+		} catch (error) {
+			console.log("error creating user", error)
+		}
+	}
+
+	return userRef
+}
 
 export const storage = getStorage()
 export const auth = getAuth()

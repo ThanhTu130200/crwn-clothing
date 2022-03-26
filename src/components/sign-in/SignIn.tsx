@@ -12,12 +12,11 @@ const SignIn: React.FC = () => {
 	})
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-
 		setInfo({
 			email: "",
 			password: "",
 		})
+		event.preventDefault()
 	}
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = event.target
