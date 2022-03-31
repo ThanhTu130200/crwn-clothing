@@ -18,7 +18,7 @@ const CollectionItem: React.FC<Props> = ({ item }) => {
 	const dispatch = useDispatch()
 	const add = bindActionCreators(addItem, dispatch)
 	return (
-		<div className="collection-item" onClick={() => add(item)}>
+		<div className="collection-item">
 			<div
 				className="image"
 				style={{
@@ -29,7 +29,9 @@ const CollectionItem: React.FC<Props> = ({ item }) => {
 				<span className="name">{item.name}</span>
 				<span className="name">{item.price}</span>
 			</div>
-			<CustomButton inverted>Add to cart</CustomButton>
+			<CustomButton onClick={() => add(item)} inverted>
+				Add to cart
+			</CustomButton>
 		</div>
 	)
 }
