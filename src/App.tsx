@@ -8,6 +8,7 @@ import { State } from "../src/redux/rootReducer"
 import "./App.css"
 import HomePage from "./pages/homepage/HomePage"
 import ShopPage from "./pages/shop/ShopPage"
+import Checkout from "./pages/checkout/Checkout"
 import Header from "./components/header/Header"
 
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUpPage"
@@ -51,6 +52,7 @@ const App: React.FC = () => {
 				<Route path="/" element={<HomePage />} />
 				<Route path="/shop" element={<ShopPage />} />
 				<Route path="/hats" element={<HatsPage />} />
+				<Route path="/checkout" element={<Checkout />} />
 				<Route
 					path="/signin"
 					element={state ? <Navigate replace to="/" /> : <SignInAndSignUp />}

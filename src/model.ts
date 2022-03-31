@@ -12,4 +12,4 @@ export interface Item {
 	price: number
 }
 
-export type CartItem = Item & { quantity: number }
+export type ItemWithQuantity = Item & { quantity: number }

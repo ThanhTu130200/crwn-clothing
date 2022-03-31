@@ -1,10 +1,10 @@
 import React from "react"
-import { CartItem as CartItemType } from "../../model"
+import { ItemWithQuantity } from "../../model"
 
 import "./CartItem.scss"
 
 type Props = {
-	item: CartItemType
+	item: ItemWithQuantity
 }
 
 const CartItem: React.FC<Props> = ({ item: { imageUrl, price, name, quantity } }) => {

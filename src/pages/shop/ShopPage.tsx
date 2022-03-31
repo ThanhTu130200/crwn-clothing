@@ -4,6 +4,7 @@ import CollectionPreview from "../../components/preview-collection/CollectionPre
 
 const ShopPage: React.FC = () => {
 	const state: any = SHOP_DATA
+
 	return (
 		<div className="shop-page">
 			{state.map(({ id, ...otherCollectionProps }: any) => (

@@ -1,6 +1,6 @@
-import { Item, CartItem } from "../../model"
+import { Item, ItemWithQuantity } from "../../model"
 
-export const addItemToCart = (cartItems: CartItem[], cartItemToAdd: Item) => {
+export const addItemToCart = (cartItems: ItemWithQuantity[], cartItemToAdd: Item) => {
 	const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToAdd.id)
 
 	if (existingCartItem) {
