@@ -1,5 +1,5 @@
 import React from "react"
-import SHOP_DATA from "./Shop.data"
+import SHOP_DATA from "./ShopData"
 import CollectionPreview from "../../components/preview-collection/CollectionPreview"
 
 const ShopPage: React.FC = () => {

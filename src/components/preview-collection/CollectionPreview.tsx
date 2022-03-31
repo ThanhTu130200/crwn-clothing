@@ -2,14 +2,11 @@ import React from "react"
 import "./CollectionPreview.scss"
 import CollectionItem from "../collection-item/CollectionItem"
 
+import { Item } from "../../model"
+
 type Props = {
 	title: string
-	items: {
-		id: number
-		name: string
-		imageUrl: string
-		price: number
-	}[]
+	items: Item[]
 }
 
 const CollectionPreview: React.FC<Props> = ({ title, items }) => {
@@ -20,13 +17,7 @@ const CollectionPreview: React.FC<Props> = ({ title, items }) => {
 				{items
 					.filter((item, index) => index < 4)
 					.map((item) => (
-						<CollectionItem
-							key={item.id}
-							id={item.id}
-							price={item.price}
-							name={item.name}
-							imageUrl={item.imageUrl}
-						/>
+						<CollectionItem key={item.id} item={item} />
 					))}
 			</div>
 		</div>
