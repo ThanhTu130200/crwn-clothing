@@ -5,13 +5,16 @@ import { useSelector } from "react-redux"
 import { State } from "../../redux/rootReducer"
 
 import { auth } from "../../firebase/firebase"
+import CartIcon from "../cart-icon/CartIcon"
+import CartDropdown from "../cart-dropdown/CartDropdown"
 
 import { ReactComponent as Logo } from "../../assets/crown.svg"
 
 import "./Header.scss"
 
 const Header: React.FC = () => {
-	const state = useSelector((state: State) => state.user.currentUser)
+	const { currentUser } = useSelector((state: State) => state.user)
+	const { hidden } = useSelector((state: State) => state.cart)
 	return (
 		<div className="header">
 			<Link className="logo-container" to="/">
@@ -24,7 +27,7 @@ const Header: React.FC = () => {
 				<Link className="option" to="/contact">
 					CONTACT
 				</Link>
-				{state ? (
+				{currentUser ? (
 					<div className="option" onClick={() => auth.signOut()}>
 						SIGN OUT
 					</div>
@@ -33,7 +36,9 @@ const Header: React.FC = () => {
 						SIGN IN
 					</Link>
 				)}
+				<CartIcon />
 			</div>
+			{hidden ? null : <CartDropdown />}
 		</div>
 	)
 }
