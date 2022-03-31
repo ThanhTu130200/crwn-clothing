@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { bindActionCreators } from "redux"
 
 import "./App.css"
 import HomePage from "./pages/homepage/HomePage"
 import ShopPage from "./pages/shop/ShopPage"
 import Header from "./components/header/Header"
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUpPage"
 import { auth, createUserProfileDocument } from "./firebase/firebase"
 import { onSnapshot } from "firebase/firestore"
-import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUpPage"
+import { setCurrentUser } from "./redux/user/userActions"
 
 const HatsPage = () => (
 	<div>
@@ -16,7 +19,8 @@ const HatsPage = () => (
 )
 
 const App: React.FC = () => {
-	const [currentUser, setCurrentUser] = useState<null | object>(null)
+	const dispatch = useDispatch()
+	const setUser = bindActionCreators(setCurrentUser, dispatch)
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
@@ -24,13 +28,13 @@ const App: React.FC = () => {
 				const userRef = await createUserProfileDocument(userAuth, null)
 				if (userRef) {
 					onSnapshot(userRef, (snapshot: any) => {
-						setCurrentUser({
+						setUser({
 							id: snapshot.id,
 							...snapshot.data(),
 						})
 					})
 				}
-			} else setCurrentUser(userAuth)
+			} else setUser(userAuth)
 		})
 
 		return () => unsubscribe()
@@ -38,7 +42,7 @@ const App: React.FC = () => {
 
 	return (
 		<div>
-			<Header currentUser={currentUser} />
+			<Header />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/shop" element={<ShopPage />} />
