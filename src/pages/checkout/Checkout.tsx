@@ -5,6 +5,7 @@ import { ItemWithQuantity } from "../../model"
 import { State } from "../../redux/rootReducer"
 
 import CheckoutItem from "../../components/checkout-item/CheckoutItem"
+import StripeButton from "../../components/stripe-button/StripeButton"
 
 import "./Checkout.scss"
 
@@ -38,6 +39,12 @@ const Checkout: React.FC = React.memo(() => {
 				<CheckoutItem key={cartItem.id} cartItem={cartItem} />
 			))}
 			<div className="total">TOTAL: ${total}</div>
+			<div className="test-warning">
+				*Please use the following test credit card for payment
+				<br />
+				4242 4242 4242 4242 - Exp: 01/24 - CVV: 123
+			</div>
+			<StripeButton price={total} />
 		</div>
 	)
 })

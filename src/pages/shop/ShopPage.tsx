@@ -1,15 +1,16 @@
 import React from "react"
-import SHOP_DATA from "./ShopData"
-import CollectionPreview from "../../components/preview-collection/CollectionPreview"
+import { Routes, Route } from "react-router-dom"
+
+import CollectionOverview from "../../components/CollectionOverview/CollectionOverview"
+import Collection from "../collection/Collection"
 
 const ShopPage: React.FC = () => {
-	const state: any = SHOP_DATA
-
 	return (
 		<div className="shop-page">
-			{state.map(({ id, ...otherCollectionProps }: any) => (
-				<CollectionPreview key={id} {...otherCollectionProps} />
-			))}
+			<Routes>
+				<Route path="" element={<CollectionOverview />} />
+				<Route path=":collectionId" element={<Collection />} />
+			</Routes>
 		</div>
 	)
 }

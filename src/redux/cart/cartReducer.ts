@@ -1,15 +1,10 @@
-import { ItemWithQuantity } from "../../model"
+import { Action, ItemWithQuantity } from "../../model"
 import { CartActionTypes } from "./cartTypes"
 import { addItemToCart, removeItemFromCart } from "./cartUtils"
 
 const initialState = {
 	hidden: true,
 	cartItems: [],
-}
-
-type Action = {
-	type: string
-	payload?: any
 }
 
 const cartReducer = (state: any = initialState, action: Action) => {

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const MenuItem: React.FC<Props> = ({ title, imageUrl, size }) => (
-	<Link to={`/${title}`} className={`${size} menu-item`}>
+	<Link to={`/shop/${title}`} className={`${size} menu-item`}>
 		<div
 			className="background-image"
 			style={{
